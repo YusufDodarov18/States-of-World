@@ -10,7 +10,7 @@ export function ModeToggle() {
   };
 
   return (
-    <Button variant="outline" size="icon" onClick={toggleTheme} className="relative">
+    <Button variant="outline" size="icon" onClick={toggleTheme} className="relative cursor-pointer">
       <Sun className={`h-5 w-5 transition-all duration-300 ${theme === "dark" ? "scale-0 -rotate-90 opacity-0" : "scale-100 rotate-0 opacity-100" }`}/>
       <Moon className={`absolute h-5 w-5 transition-all duration-300 ${ theme === "dark" ? "scale-100 rotate-0 opacity-100" : "scale-0 rotate-90 opacity-0" }`}/>
       <span className="sr-only">Toggle theme</span>
