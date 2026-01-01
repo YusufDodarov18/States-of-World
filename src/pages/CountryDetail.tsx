@@ -9,6 +9,7 @@ import { ChevronLeft } from "lucide-react";
 import Header from "../components/Header";
 import { countryCapitalsTG } from "../others/countryCapital";
 import { countryArea } from "../others/countryarea";
+import Loading from "./Loading";
 
 export const CountryDetail=()=> {
   const { id } = useParams<{ id: string }>();
@@ -17,9 +18,11 @@ export const CountryDetail=()=> {
   const [filter,setFilter]=useState<Country>([])
   const [select,setSelect]=useState<string>("")
   const [name,setName]=useState<string>("")
+  const [loading,setLoading]=useState<boolean>(true)
   const [bordersMap, setBordersMap] = useState<border>({});
   useEffect(()=>{
     const fineData=async()=>{
+      setLoading(false)
       const data = await axios.get<Country>(`https://restcountries.com/v3.1/all?fields=name,capital,population,area,flags,region,borders,currencies,languages,tld`);
       const result = data.data.filter((el) => el.name.common == id);
       setData(data.data)
@@ -95,7 +98,7 @@ useEffect(()=>{
   return (
     <>
       <Header search={search} name={name} setName={setName} value={select} setValue={setSelect}/>
-       <div className="my-10 font-sans">
+       <div className="my-10 mt-30 font-sans">
         <div className="flex justify-center md:justify-start px-1 md:px-24 mb-6">
           <Button asChild className="bg-orange-500 hover:bg-orange-400 flex items-center gap-1 cursor-pointer"><Link to={`/`}><ChevronLeft size={18} />Ба ақиб</Link></Button>
         </div>
@@ -122,6 +125,7 @@ useEffect(()=>{
         <div>
           <div className="mt-10 px-4 md:px-20">
             <h2 className="text-xl mb-4 font-semibold">Дигар давлатҳо</h2>
+            {loading&&<Loading/>}
              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-10 py-10 place-items-center">
               {filter.length===0 && name.trim()!==""?(
           <div className="text-red-500 text-3xl"><h1>Пайдо нашуд: {name}</h1></div>

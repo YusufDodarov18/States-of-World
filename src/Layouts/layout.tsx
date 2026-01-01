@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom'
 
 function Layout() {
   return (
-    <div>
+    <div className="mt-[300px] md:mt-0">
        <Outlet /> 
     </div>
   )
